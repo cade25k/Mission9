@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Mission7.Controllers
 {
+    //Order controller when checking out
     public class OrderController : Controller
     {
         private IOrderRepository repo { get; set; }

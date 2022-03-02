@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Mission7.Components
 {
+    // Class for cart summary component
     public class CartSummaryViewComponent : ViewComponent
     {
         private Basket basket;

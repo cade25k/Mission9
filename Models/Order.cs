@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Mission7.Models
 {
+    // Class to hold order personal info
     public class Order
     {
         [Key]

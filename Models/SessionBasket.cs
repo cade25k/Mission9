@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Mission7.Models
 {
+    // Class to keep basket in a session
     public class SessionBasket : Basket
     {
         [JsonIgnore]
