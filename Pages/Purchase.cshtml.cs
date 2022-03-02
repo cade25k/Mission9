@@ -9,14 +9,15 @@ using Mission7.Models.Infrastructure;
 
 namespace Mission7.Pages
 {
-    // Class that builds the cart and makes the session
+    // Class that builds the cart
     public class PurchaseModel : PageModel
     {
         private IBookstoreRepository repo { get; set; }
 
-        public PurchaseModel (IBookstoreRepository temp)
+        public PurchaseModel (IBookstoreRepository temp, Basket b)
         {
             repo = temp;
+            basket = b;
         }
 
         public Basket basket { get; set; }
@@ -26,18 +27,20 @@ namespace Mission7.Pages
         public void OnGet(string returnUrl)
         {
             ReturnUrl = returnUrl ?? "/";
-            basket = HttpContext.Session.GetJson<Basket>("basket") ?? new Basket();
         }
 
         public IActionResult OnPost(int bookId, string returnUrl)
         {
             Book b = repo.Books.FirstOrDefault(x => x.BookId == bookId);
 
-            basket = HttpContext.Session.GetJson<Basket>("basket") ?? new Basket();
             basket.AddItem(b, 1);
 
-            HttpContext.Session.SetJson("basket", basket);
+            return RedirectToPage(new { ReturnUrl = returnUrl });
+        }
 
+        public IActionResult OnPostRemove(int bookId, string returnUrl)
+        {
+            basket.RemoveItem(basket.Items.First(x => x.Book.BookId == bookId).Book);
             return RedirectToPage(new { ReturnUrl = returnUrl });
         }
     }
